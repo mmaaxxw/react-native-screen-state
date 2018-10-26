@@ -17,7 +17,7 @@ RCT_EXPORT_MODULE();
 
 - (NSArray<NSString *> *)supportedEvents
 {
-    return @[@"ScreenStateDidChange"];
+    return @[@"screenStateDidChange"];
 }
 
 RCT_EXPORT_METHOD(register){
@@ -55,7 +55,7 @@ void displayStatusChanged(CFNotificationCenterRef center, void *observer, CFStri
     //      NSString *lockState = (NSString*)name;
     
     [globalSelf tooggleIsLocked];
-    [globalSelf sendEventWithName:@"ScreenStateDidChange" body:@{@"isScreenOn": !isLocked ? @"true" : @"false"}];
+    [globalSelf sendEventWithName:@"screenStateDidChange" body:@{@"isScreenOn": !isLocked ? @"true" : @"false"}];
     NSLog(@"Darwin notification NAME = %@",name);
     NSLog(@"Darwin notification isLocked = ");
     NSLog(isLocked ? @"Darwin notification Yes" : @"Darwin notification No");
