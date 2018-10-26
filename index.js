@@ -10,7 +10,7 @@ if(Platform.OS === 'ios'){
   screenStateEmitter = new NativeEventEmitter(RNScreenState)
 }
 
-module.export = {
+module.exports = {
   register(listener){
     if(!isRegistered){
       RNScreenState.register();
@@ -39,5 +39,3 @@ module.export = {
     }
   }
 }
-
-export default RNScreenState;

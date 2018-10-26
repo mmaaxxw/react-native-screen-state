@@ -1,7 +1,7 @@
 
 Pod::Spec.new do |s|
   s.name         = "RNScreenState"
-  s.version      = "1.0.0"
+  s.version      = "0.0.1"
   s.summary      = "RNScreenState"
   s.description  = <<-DESC
                   RNScreenState
@@ -21,4 +21,3 @@ Pod::Spec.new do |s|
 
 end
 
-  
