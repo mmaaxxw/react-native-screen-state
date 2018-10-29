@@ -57,8 +57,8 @@ void displayStatusChanged(CFNotificationCenterRef center, void *observer, CFStri
     [globalSelf tooggleIsLocked];
     [globalSelf sendEventWithName:@"screenStateDidChange" body:@{@"isScreenOn": !isLocked ? @"true" : @"false"}];
     NSLog(@"Darwin notification NAME = %@",name);
-    NSLog(@"Darwin notification isLocked = ");
-    NSLog(isLocked ? @"Darwin notification Yes" : @"Darwin notification No");
+    NSLog(@"Darwin notification isLocked =  %@", isLocked ? @"TRUE" : @"FALSE");
+//    NSLog(isLocked ? @"Darwin notification Yes" : @"Darwin notification No");
 }
 
 @end

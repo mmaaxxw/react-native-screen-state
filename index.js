@@ -13,29 +13,30 @@ if(Platform.OS === 'ios'){
 module.exports = {
   register(listener){
     if(!isRegistered){
-      RNScreenState.register();
+         RNScreenState.register();
       _listener = listener;
       if(Platform.OS !== 'ios'){
         DeviceEventEmitter.addListener('screenStateDidChange', _listener);
-      } else {
-        this.sub = screenStateEmitter.addListener('screenStateDidChange', _listener)
       }
       isRegistered = true;
+    }
+    if(Platform.OS === 'ios' && sub === null){
+      sub = screenStateEmitter.addListener('screenStateDidChange', _listener);
     }
   },
 
   unregister(){
     if(isRegistered){
-      RNScreenState.unregister();
       if(Platform.OS !== 'ios'){
         DeviceEventEmitter.removeListener('screenStateDidChange', _listener);
+        RNScreenState.unregister();
+        isRegistered = false;
       } else {
-        if(this.sub){
-          this.sub.remove();
-          this.sub = null;
+        if(sub){
+          sub.remove();
+          sub = null;
         }
       }
-      isRegistered = false;
     }
   }
 }
