@@ -1,42 +1,31 @@
-import { NativeModules, Platform, DeviceEventEmitter, NativeEventEmitter } from 'react-native';
+import {NativeModules, Platform, DeviceEventEmitter} from 'react-native';
 
-const { RNScreenState } = NativeModules;
+const {RNScreenState} = NativeModules;
 
 var isRegistered = false;
-var screenStateEmitter = null;
 var _listener = null;
-var sub = null;
-if(Platform.OS === 'ios'){
-  screenStateEmitter = new NativeEventEmitter(RNScreenState)
-}
 
 module.exports = {
-  register(listener){
-    if(!isRegistered){
-         RNScreenState.register();
-      _listener = listener;
-      if(Platform.OS !== 'ios'){
-        DeviceEventEmitter.addListener('screenStateDidChange', _listener);
-      }
-      isRegistered = true;
+  register(listener) {
+    if (Platform.OS === 'ios') {
+      return;
     }
-    if(Platform.OS === 'ios' && sub === null){
-      sub = screenStateEmitter.addListener('screenStateDidChange', _listener);
+    if (!isRegistered) {
+      RNScreenState.register();
+      _listener = listener;
+      DeviceEventEmitter.addListener('screenStateDidChange', _listener);
+      isRegistered = true;
     }
   },
 
-  unregister(){
-    if(isRegistered){
-      if(Platform.OS !== 'ios'){
-        DeviceEventEmitter.removeListener('screenStateDidChange', _listener);
-        RNScreenState.unregister();
-        isRegistered = false;
-      } else {
-        if(sub){
-          sub.remove();
-          sub = null;
-        }
-      }
+  unregister() {
+    if (Platform.OS === 'ios') {
+      return;
+    }
+    if (isRegistered) {
+      DeviceEventEmitter.removeListener('screenStateDidChange', _listener);
+      RNScreenState.unregister();
+      isRegistered = false;
     }
   }
 }
